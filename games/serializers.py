@@ -25,21 +25,21 @@ class GameRegisteredSerializer(ModelSerializer):
             else:
                 print('New PlayerGame object created')
             finally:
-                print(PlayerGame.objects.all())
+                # print(PlayerGame.objects.all())
                 return game_exists
 
         new_game = super().create(validated_data)
         self._create_player_game_relation(
             player=user.userplayer,
             game=new_game)
-        print(PlayerGame.objects.all())
+        # print(PlayerGame.objects.all())
         return new_game
 
     def _create_player_game_relation(self, player, game):
         PlayerGame.objects.create(player=player, game=game)
 
 
-class PlayerGameSerializer(ModelSerializer):
-    class Meta:
-        model = PlayerGame
-        fields = ('game', 'player')
+# class PlayerGameSerializer(ModelSerializer):
+#     class Meta:
+#         model = PlayerGame
+#         fields = ('game', 'player')

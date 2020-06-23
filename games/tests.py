@@ -84,3 +84,17 @@ class GameRegistrationSerializerTest(TestCase):
             url, **{'HTTP_AUTHORIZATION': f'Token {self.token}'})
         self.assertEquals(response.status_code, 200)
         self.assertEquals(len(response.data), 2)
+
+    def test_02_can_get_playergames_via_api(self):
+        # successful POST to api/games results in creation of playergame
+        # player is taken from request.user
+        client.post('/api/games/',
+                    data={'name': 'karak'},
+                    **{'HTTP_AUTHORIZATION': f'Token {self.token}'}
+                    )
+        url = '/api/playergames/'
+        response = client.get(
+            url, **{'HTTP_AUTHORIZATION': f'Token {self.token}'})
+        print(response.data)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(len(response.data), 1)
