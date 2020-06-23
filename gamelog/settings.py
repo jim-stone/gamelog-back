@@ -39,9 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'games.apps.GamesConfig'  # because of signal import in config
-
+    'games.apps.GamesConfig',  # because of signal import in config
+    'djoser',
+    'rest_framework.authtoken'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':
+    ('rest_framework.authentication.TokenAuthentication',
+     'rest_framework.authentication.SessionAuthentication'),
+    'DEFAULT_PERMISSION_CLASSES':  # or: permission_classes in ViewSets
+    ('rest_framework.permissions.IsAuthenticated',),  # careful for tuple
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

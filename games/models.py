@@ -28,3 +28,6 @@ class PlayerGame(models.Model):
 
     def __str__(self):
         return f'Player {self.player.user.username} knows Game {self.game.name}'
+
+    class Meta:
+        unique_together = ('game', 'player')
