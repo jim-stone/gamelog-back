@@ -12,6 +12,7 @@ django = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 djoser = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"

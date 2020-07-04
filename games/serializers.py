@@ -6,7 +6,7 @@ from .models import GameRegistered, PlayerGame
 class GameRegisteredSerializer(ModelSerializer):
     class Meta:
         model = GameRegistered
-        fields = ('bga_id', 'name', 'description', 'thumb_url')
+        fields = ('id', 'bga_id', 'name', 'description', 'thumb_url')
 
     def create(self, validated_data):
 

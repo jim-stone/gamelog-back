@@ -19,7 +19,8 @@ from .api import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('djoser.urls.authtoken')),
+    path('api/auth/tokens/', include('djoser.urls.authtoken')),
+    path('api/auth/', include('djoser.urls')),
     path('api/login/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
 ]
