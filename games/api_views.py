@@ -15,7 +15,5 @@ class PlayerGameViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         player = self.request.user.userplayer
-        # print('User: ', self.request.user, self.request.user.userplayer)
-        # queryset = GameRegistered.objects.all()
-        queryset = GameRegistered.objects.filter(playergame__player=player)
+        queryset = GameRegistered.objects.filter(player_games__player=player)
         return queryset

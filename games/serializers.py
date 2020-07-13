@@ -3,10 +3,19 @@ from rest_framework.serializers import ModelSerializer
 from .models import GameRegistered, PlayerGame
 
 
+class PlayerGameSerializer(ModelSerializer):
+    class Meta:
+        model = PlayerGame
+        fields = ('id', 'game', 'player', 'addition_time')
+
+
 class GameRegisteredSerializer(ModelSerializer):
+    player_games = PlayerGameSerializer(many=True)
+
     class Meta:
         model = GameRegistered
-        fields = ('id', 'bga_id', 'name', 'description', 'thumb_url')
+        fields = ('id', 'bga_id', 'name', 'description',
+                  'thumb_url', 'player_games')
 
     def create(self, validated_data):
 
@@ -25,21 +34,13 @@ class GameRegisteredSerializer(ModelSerializer):
             else:
                 print('New PlayerGame object created')
             finally:
-                # print(PlayerGame.objects.all())
                 return game_exists
 
         new_game = super().create(validated_data)
         self._create_player_game_relation(
             player=user.userplayer,
             game=new_game)
-        # print(PlayerGame.objects.all())
         return new_game
 
     def _create_player_game_relation(self, player, game):
         PlayerGame.objects.create(player=player, game=game)
-
-
-# class PlayerGameSerializer(ModelSerializer):
-#     class Meta:
-#         model = PlayerGame
-#         fields = ('game', 'player')
